@@ -1,0 +1,153 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: poppins;
+}
+.wrapper{
+    height: 100vh;
+    background-image: url(images/pexels-sohail-nachiti-807598.jpg);
+    -webkit-background-size:cover;
+    background-size: cover;
+    background-position: fixed;
+    background-repeat: no-repeat;
+}
+.banner{
+    width: 300px;
+    height: 450px;
+    background: inherit;
+    position: absolute;
+    overflow: hidden;
+    top: 50%;
+    left: 50%;
+    border-radius: 5px;
+    transform: translate(-50%,-50%);
+}
+.banner::before{
+    width: 750px;
+    height: 500px;
+    content: '';
+    position: absolute;
+    top: -25px;
+    left: -25px;
+    bottom: 0;
+    right: 0;
+    background: inherit;
+    box-shadow: inset 0 0 0 500px rgba(255,255,255,0.2);
+    filter: blur(10px);
+}
+.img-form{
+    position: absolute;
+    top: -90px;
+    left: 50%;
+    transform: translate(-50%,50%);
+    
+}
+hr{
+    width: 120px;
+    margin: auto;
+}
+.img-form p{
+    font-size: 13px;
+    color: white;
+    padding-top: 30px;
+    padding-bottom: 40px;
+    text-align: center;
+}
+.img-form h3{
+    display: flex;
+    color: #242821;
+    color: white;
+    justify-content: center;
+   font-family: 'Roboto Condensed', sans-serif;
+    font-size: 40px;
+}
+.buttons{
+    display: flex;
+    flex-direction: column;
+}
+.buttons>*{
+    margin: 5px;
+}
+.buttons #button{
+    height: 40px;
+    width: 250px;
+    border-radius: 10px;
+    background-color: transparent;
+    color: white;
+    border: 1px solid white;
+}
+/*#242821*/
+.admin button{
+    height: 40px;
+    width: 100px;
+    background-color: transparent;
+    color: #242821;
+    border: 1px solid #242821;
+}
+.img-form b{
+    color: #133d12;
+    font-size: 25px;
+}
+.img-form em{
+    color: #133d12;
+}
+.img-form form{
+    display: flex;
+    flex-direction: column;
+}
+#select{
+    height: 40px;
+    width: 300px;
+    border-radius: 10px;
+    background-color: transparent;
+     border: 1px solid #133d12;
+}
+.select{
+    display: flex;
+    justify-content: center;
+}
+.img-form form>*{
+    margin: 5px;
+}
+#signnin{
+    text-align: center;
+}
+#signnin span{
+    color: black;
+}
+.img-form form input{
+    width: 300px;
+    height: 40px;
+    border-radius: 10px;
+    background-color: transparent;
+    border: 1px solid #133d12;
+}
+.buttons #buttons{
+    background-color: #133d12;
+    height: 40px;
+    border: none;
+    width: 250px;
+    border-radius: 10px;
+    color: white;
+}
+.fa-brands{
+    color: #242821;
+    font-size: 25px;
+}
+::placeholder{
+    color: #133d12;
+    padding-left: 10px;
+}
+#brands{
+    display: flex;
+    justify-content: center;
+}
+#brands>*{
+    margin: 5px;
+}
+#or{
+    display: flex;
+    justify-content: center;
+    color: #242821;
+
+}

@@ -1,0 +1,136 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: poppins;
+}
+nav img{
+    height: 40px;
+}
+.logo{
+    display: flex;
+    align-items: center;
+}
+nav{
+    padding-top: 5px;
+    padding-bottom: 5px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0px 2.98256px 7.4564px rgba(0, 0, 0, 0.1);
+    justify-content: space-between;
+    padding-left: 10px;
+    padding-right: 20px;
+}
+#navshow .fa-solid{
+    font-size: 18px;
+}
+.navlinks{
+    position: absolute;
+    display: flex;
+    right: 0;
+    top: 0;
+    background-color: #133d12;
+}
+.navlinks .fa-solid{
+    font-size: 18px;
+    color: white;
+    padding: 5px;
+}
+li{
+    list-style: none;
+    margin: 20px;
+}
+li a{
+    color: white;
+    text-decoration: none;
+}
+.cartitems{
+    padding: 10px;
+}
+.cartitems>*{
+    margin: 10px;
+}
+#item{
+    display: flex;
+    align-items: center;
+}
+#item img{
+    width: 120px;
+    height: 120px;
+    border-radius: 20px;
+}
+#specs p{
+    color: gray;
+}
+#specs b{
+    color: #035d01;
+}
+#specs{
+    padding-left: 30px;
+}
+footer{
+    height: 200px;
+    width: 100%;
+    border-radius: 50px 50px 0 0;
+    background-color: #FAF9F6;
+    position:fixed;
+    bottom: 0;
+}
+.check{
+    display: flex;
+    justify-content: center;
+}
+footer button{
+    width: 300px;
+    height: 40px;
+    border: none;
+    color: white;
+    background-color: #035d01;
+}
+.myplant{
+    padding-bottom: 10px;
+    border-bottom: 1px solid;
+}
+#price{
+    padding-top: 30px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 30px;
+    display: flex;
+    justify-content: space-between;
+}
+#price span{
+    color: #035d01;
+}
+h2{
+    padding: 10px;
+    color: #035d01;
+}
+.controls{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.controls input{
+    height: 30px;
+    width: 50px;
+    border: none;
+}
+.controls button{
+    height: 32px;
+    width: 32px;
+    background-color: #035d01;
+}
+.remove{
+    display: flex;
+    justify-content: center;
+}
+.fa-trash{
+    font-size: 20px;
+    color: #035d01;
+}
+.fa-plus,.fa-minus{
+    color: white;
+}
+::placeholder{
+    padding-left: 20px;
+}
