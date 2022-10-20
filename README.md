@@ -1,2 +1,3 @@
-# Brightside
-# Brightside
+🌴 Brightside 🌴
+
+A climate change project
