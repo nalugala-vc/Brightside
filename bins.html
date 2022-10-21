@@ -5,14 +5,24 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="campaigns.css">
+    <link rel="stylesheet" href="home.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <script src="https://kit.fontawesome.com/e54abc54b9.js" crossorigin="anonymous"></script>
     <link
         href="https://fonts.googleapis.com/css2?family=Alumni+Sans+Inline+One&family=Inter:wght@300;700&family=Josefin+Sans&family=Just+Another+Hand&family=Karla&family=Lobster+Two&family=Metal+Mania&family=Pacifico&family=Poppins&family=Roboto+Condensed:ital,wght@0,300;0,400;0,700;1,400&family=Rubik+Marker+Hatch&display=swap"
         rel="stylesheet">
-    <title>BRIGHTSIDE</title>
+    <title>BRIGHTSIDE -Locate a bins</title>
+
+    <style>
+        /* Set the size of the div element that contains the map */
+        #map {
+            height: 400px;
+            /* The height is 400 pixels */
+            width: 100%;
+            /* The width is the width of the web page */
+        }
+    </style>
 </head>
 
 <body>
@@ -28,90 +38,31 @@
     <div class="navlinks" style="display: none;" id="navlinks">
         <div id="navhide"><i class="fa-solid fa-bars"></i></div>
         <ul>
-            <li><a href="/index.html">home</a></li>
-            <li><a href="">bins</a></li>
-            <li><a href="/buyingtrees.html">trees</a></li>
-            <li><a href="/campaigns.html">campaigns</a></li>
-            <li><a href="/report.html">report</a></li>
-            <li><a href="/cart.html">cart</a></li>
-            <li><a href="/info.html">info</a></li>
-            <li><a href="/profile.html">profile</a></li>
+            <li><a href="index.html">home</a></li>
+            <li><a href="bins.html">bins</a></li>
+            <li><a href="buyingtrees.html">trees</a></li>
+            <li><a href="campaigns.html">campaigns</a></li>
+            <li><a href="report.html">report</a></li>
+            <li><a href="cart.html">cart</a></li>
+            <li><a href="info.html">info</a></li>
+            <li><a href="profile.html">profile</a></li>
+            <li><a href="register.html">register</a></li>
+            <li><a href="login.html">login</a></li>
         </ul>
     </div>
     <section>
-        <div id="camp">
-            <h1>Campaigns</h1>
+        <div class="mainimg">
+            <h1>Locate a Dustbin near you.</h1>
+
+            <!--The div element for the map -->
+            <div id="map"></div>
         </div>
-        <div id="camp">
-            <div class="campaigns">
-                <div class="gallery bottom">
-                    <img src="/images/hands-1838658_1920.jpg" alt="">
-                </div>
-                <div class="mainpic">
-                    <h2>
-                        Love to breathe save the trees</h2>
-                    <div><img src="/images/pexels-cottonbro-5561310.jpg" alt=""></div><br>
-                    <p>This is an approved campaign to help us plant more trees in Karura forest following its
-                        deforestation. We aim to raise KES 1000 to buy around 100 seedlings and plant them on the 25th of
-                        january 2023</p>
-                    <div id="goal">
-                        <span><b>Goal:</b> 1000 ksh</span><br>
-                        <span><b>Reached:</b> 1000 ksh</span>
-                    </div>
-                    <div>
-                        <button>Get Envolved</button>
-                    </div>
-                </div>
-                <div class="gallery">
-                    <img src="/images/pexels-akil-mazumder-1072824.jpg" alt="">
-                </div>
-            </div>
-            <div class="campaigns">
-                <div class="gallery bottom">
-                    <img src="/images/hands-1838658_1920.jpg" alt="">
-                </div>
-                <div class="mainpic">
-                    <h2>
-                        Love to breathe save the trees</h2>
-                    <div><img src="/images/pexels-cottonbro-5561310.jpg" alt=""></div><br>
-                    <p>This is an approved campaign to help us plant more trees in Karura forest following its
-                        deforestation. We aim
-                        to raise KES 1000 to buy around 100 seedlings and plant them on the 25th of january 2023</p>
-                    <div id="goal">
-                        <span><b>Goal:</b> 1000 ksh</span><br>
-                        <span><b>Reached:</b> 1000 ksh</span>
-                    </div>
-                    <div>
-                        <button>Get Envolved</button>
-                    </div>
-                </div>
-                <div class="gallery">
-                    <img src="/images/pexels-akil-mazumder-1072824.jpg" alt="">
-                </div>
-            </div>
-            <div class="campaigns">
-                <div class="gallery bottom">
-                    <img src="/images/hands-1838658_1920.jpg" alt="">
-                </div>
-                <div class="mainpic">
-                    <h2>
-                        Love to breathe save the trees</h2>
-                    <div><img src="/images/pexels-cottonbro-5561310.jpg" alt=""></div><br>
-                    <p>This is an approved campaign to help us plant more trees in Karura forest following its
-                        deforestation. We aim
-                        to raise KES 1000 to buy around 100 seedlings and plant them on the 25th of january 2023</p>
-                    <div id="goal">
-                        <span><b>Goal:</b> 1000 ksh</span><br>
-                        <span><b>Reached:</b> 1000 ksh</span>
-                    </div>
-                    <div>
-                        <button>Get Envolved</button>
-                    </div>
-                </div>
-                <div class="gallery">
-                    <img src="/images/pexels-akil-mazumder-1072824.jpg" alt="">
-                </div>
-            </div>
+
+        <div class="subscribe">
+            <b>SUBSCRIBE</b>
+            <p>sign up for our newsletter</p>
+            <div class="inp"><input type="email" name="" id="" placeholder="email"></div>
+            <div class="btn"><button>subscribe</button></div>
         </div>
         <footer>
             <h3>BRIGHTSIDE</h3>
@@ -123,6 +74,30 @@
         </footer>
     </section>
     <script src="display.js"></script>
+
+    <script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAUvjiCXqUAlJAX51e_HijdPbL9I6_Oqgs&callback=initMap&v=weekly"
+        defer></script>
+
+    <script>
+        // Initialize and add the map
+        function initMap() {
+            // The location of Uluru
+            const uluru = { lat: -25.344, lng: 131.031 };
+            // The map, centered at Uluru
+            const map = new google.maps.Map(document.getElementById("map"), {
+                zoom: 4,
+                center: uluru,
+            });
+            // The marker, positioned at Uluru
+            const marker = new google.maps.Marker({
+                position: uluru,
+                map: map,
+            });
+        }
+
+        window.initMap = initMap;
+    </script>
 </body>
 
 </html>
