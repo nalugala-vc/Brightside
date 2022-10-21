@@ -9,23 +9,22 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <script src="https://kit.fontawesome.com/e54abc54b9.js" crossorigin="anonymous"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
     <link
         href="https://fonts.googleapis.com/css2?family=Alumni+Sans+Inline+One&family=Inter:wght@300;700&family=Josefin+Sans&family=Just+Another+Hand&family=Karla&family=Lobster+Two&family=Metal+Mania&family=Pacifico&family=Poppins&family=Roboto+Condensed:ital,wght@0,300;0,400;0,700;1,400&family=Rubik+Marker+Hatch&display=swap"
         rel="stylesheet">
     <title>BRIGHTSIDE</title>
 </head>
 
-<body ng-app="myApp" ng-controller="registerCtrl">
+<body>
     <div class="pic">
         <img src="images/pexels-sohail-nachiti-807598.jpg" alt="">
     </div>
     <div class="form">
-        <h3>Hello {{username}}!</h3>
+        <h3>Hello!</h3>
         <p>create an account</p>
     
         <form id="form">
-            <div><input type="text" name="username" id="" placeholder="Username" ng-model="username"></div>
+            <div><input type="text" name="username" id="" placeholder="Username"></div>
             <div><input type="password" name="password1" id="" placeholder="Password"></div>
             <div><input type="password" name="password2" id="" placeholder="Confirm password"></div>
             <div><input type="email" name="email" id="" placeholder="Email"></div>
@@ -42,16 +41,6 @@
         <div id="reg">Already have an account? <b>Login</b></div>
     </div>
     <script src="main.js"></script>
-
-    <script>
-        var app = angular.module('myApp', []);
-
-        app.controller('registerCtrl', function($scope) {
-            $scope.username = "";
-
-            
-        });
-    </script>
    
 </body>
 
