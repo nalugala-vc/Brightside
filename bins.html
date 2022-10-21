@@ -56,6 +56,7 @@
 
             <!--The div element for the map -->
             <div id="map"></div>
+            <div id="directionsPanel" style="float:right;width:30%;height:100%"></div>
         </div>
 
         <div class="subscribe">
@@ -81,8 +82,8 @@
 
     <script>
         let map;
-        let locations = [];
         let currentLatitude, currentLongitude;
+        let directionsService, directionsRenderer;
 
         /* Set default map position */
         function setDefaultMapPosition(lat, lng) {
@@ -100,9 +101,13 @@
                     currentLatitude = position.coords.latitude;
                     currentLongitude = position.coords.longitude;
 
-                    setDefaultMapPosition(position.coords.latitude, position.coords.longitude);
+                    const marker = new google.maps.Marker({
+                        position: { lat: currentLatitude, lng: currentLongitude },
+                        map: map,
+                    });
 
-                    console.log(nearestLocation);
+                    setDefaultMapPosition(position.coords.latitude, position.coords.longitude);
+                    getNearByRecycleAreas(currentLatitude, currentLongitude);
                 });
             } else {
                 x.innerHTML = "Geolocation is not supported by this browser.";
@@ -119,6 +124,13 @@
                 zoom: 5,
                 center: uluru,
             });
+
+            directionsService = new google.maps.DirectionsService();
+            directionsRenderer = new google.maps.DirectionsRenderer();
+
+            directionsRenderer.setMap(map);
+            directionsRenderer.setPanel(document.getElementById('directionsPanel'));
+
             getLocation();
         }
 
@@ -128,28 +140,51 @@
             redirect: 'follow'
         };
 
-        fetch("http://18.182.31.147/api/recycle/\n", requestOptions)
-            .then(response => response.text())
-            .then(result => {
-                // Add pins to google maps.
-                recycleAreas = JSON.parse(result);
+        function getNearByRecycleAreas() {
+            fetch("http://18.182.31.147/api/near/recycle/?lat=-1.315497&long=36.809479", requestOptions)
+                .then(response => response.text())
+                .then(result => {
+                    // Add marker to google maps.
+                    recycleAreas = JSON.parse(result);
 
-                recycleAreas.forEach(recycleArea => {
-                    // Add pin to google map
-                    const uluru = {
-                        lat: recycleArea.location.coordinates[1],
-                        lng: recycleArea.location.coordinates[0]
-                    };
+                    recycleAreas.forEach(recycleArea => {
+                        // Add marker to google map
+                        const uluru = {
+                            lat: recycleArea.location.coordinates[1],
+                            lng: recycleArea.location.coordinates[0]
+                        };
 
-                    const marker = new google.maps.Marker({
-                        position: uluru,
-                        map: map,
+                        const marker = new google.maps.Marker({
+                            position: uluru,
+                            map: map,
+                        });
+
+                        console.log(marker.position)
+
+                        /* Create route from current position to marker on click */
+                        marker.addListener("click", () => {
+                            const start = new google.maps.LatLng(currentLatitude, currentLongitude);
+                            const end = new google.maps.LatLng(marker.position.lat(), marker.position.lng());
+
+                            var request = {
+                                origin: start,
+                                destination: end,
+                                travelMode: 'WALKING'
+                            };
+
+                            directionsService.route(request, function (response, status) {
+                                console.log(status);
+                                if (status == 'OK') {
+                                    directionsRenderer.setDirections(response);
+                                }
+                            });
+
+                            console.log(marker)
+                        });
                     });
-
-                    locations.push([recycleArea.location.coordinates[1], recycleArea.location.coordinates[0]]);
-                });
-            })
-            .catch(error => console.log('error', error));
+                })
+                .catch(error => console.log('error', error));
+        }
 
         window.initMap = initMap;
     </script>
