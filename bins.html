@@ -80,21 +80,76 @@
         defer></script>
 
     <script>
+        let map;
+        let locations = [];
+        let currentLatitude, currentLongitude;
+
+        /* Set default map position */
+        function setDefaultMapPosition(lat, lng) {
+            const uluru = { lat: lat, lng: lng };
+
+            // The map, centered at Uluru
+            map.setCenter(uluru);
+        }
+
+        /* Get user location */
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function (position) {
+
+                    currentLatitude = position.coords.latitude;
+                    currentLongitude = position.coords.longitude;
+
+                    setDefaultMapPosition(position.coords.latitude, position.coords.longitude);
+
+                    console.log(nearestLocation);
+                });
+            } else {
+                x.innerHTML = "Geolocation is not supported by this browser.";
+            }
+        }
+
         // Initialize and add the map
         function initMap() {
             // The location of Uluru
             const uluru = { lat: -25.344, lng: 131.031 };
+
             // The map, centered at Uluru
-            const map = new google.maps.Map(document.getElementById("map"), {
-                zoom: 4,
+            map = new google.maps.Map(document.getElementById("map"), {
+                zoom: 5,
                 center: uluru,
             });
-            // The marker, positioned at Uluru
-            const marker = new google.maps.Marker({
-                position: uluru,
-                map: map,
-            });
+            getLocation();
         }
+
+        // Fetch all recycleareas
+        var requestOptions = {
+            method: 'GET',
+            redirect: 'follow'
+        };
+
+        fetch("http://18.182.31.147/api/recycle/\n", requestOptions)
+            .then(response => response.text())
+            .then(result => {
+                // Add pins to google maps.
+                recycleAreas = JSON.parse(result);
+
+                recycleAreas.forEach(recycleArea => {
+                    // Add pin to google map
+                    const uluru = {
+                        lat: recycleArea.location.coordinates[1],
+                        lng: recycleArea.location.coordinates[0]
+                    };
+
+                    const marker = new google.maps.Marker({
+                        position: uluru,
+                        map: map,
+                    });
+
+                    locations.push([recycleArea.location.coordinates[1], recycleArea.location.coordinates[0]]);
+                });
+            })
+            .catch(error => console.log('error', error));
 
         window.initMap = initMap;
     </script>
