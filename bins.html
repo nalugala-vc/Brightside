@@ -1,174 +1,229 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="home.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <script src="https://kit.fontawesome.com/e54abc54b9.js" crossorigin="anonymous"></script>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="home.css" />
+    <link rel="stylesheet" href="bins.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <script
+      src="https://kit.fontawesome.com/e54abc54b9.js"
+      crossorigin="anonymous"
+    ></script>
     <link
-        href="https://fonts.googleapis.com/css2?family=Alumni+Sans+Inline+One&family=Inter:wght@300;700&family=Josefin+Sans&family=Just+Another+Hand&family=Karla&family=Lobster+Two&family=Metal+Mania&family=Pacifico&family=Poppins&family=Roboto+Condensed:ital,wght@0,300;0,400;0,700;1,400&family=Rubik+Marker+Hatch&display=swap"
-        rel="stylesheet">
+      href="https://fonts.googleapis.com/css2?family=Alumni+Sans+Inline+One&family=Inter:wght@300;700&family=Josefin+Sans&family=Just+Another+Hand&family=Karla&family=Lobster+Two&family=Metal+Mania&family=Pacifico&family=Poppins&family=Roboto+Condensed:ital,wght@0,300;0,400;0,700;1,400&family=Rubik+Marker+Hatch&display=swap"
+      rel="stylesheet"
+    />
     <title>BRIGHTSIDE -Locate a bins</title>
 
     <style>
-        /* Set the size of the div element that contains the map */
-        #map {
-            height: 400px;
-            /* The height is 400 pixels */
-            width: 100%;
-            /* The width is the width of the web page */
-        }
+      /* Set the size of the div element that contains the map */
+      #map {
+        height: 400px;
+        /* The height is 400 pixels */
+        width: 100%;
+        /* The width is the width of the web page */
+      }
     </style>
-</head>
+  </head>
 
-<body>
+  <body>
     <header></header>
-    
+
     <section>
-        <div class="mainimg">
-            <h1>Locate a Dustbin near you.</h1>
+      <div class="mainimg">
+        <h1>Locate a Dustbin near you.</h1>
 
-            <!--The div element for the map -->
-            <div id="map"></div>
-            <div id="directionsPanel" style="float:right;width:30%;height:100%"></div>
-        </div>
+        <!--The div element for the map -->
+        <div id="map"></div>
+        <div
+          id="directionsPanel"
+          style="float: right; width: 30%; height: 100%"
+        ></div>
+      </div>
 
-        <div class="subscribe">
-            <b>SUBSCRIBE</b>
+      <div class="subscribe">
+        <p id="recycle_center">Select a center to call</p>
+        <button id="call-btn" onclick="makeOrder()"disabled=true>Call</button>
+        <!-- <b>SUBSCRIBE</b>
             <p>sign up for our newsletter</p>
             <div class="inp"><input type="email" name="" id="" placeholder="email"></div>
-            <div class="btn"><button>subscribe</button></div>
+            <div class="btn"><button>subscribe</button></div> -->
+      </div>
+      <footer>
+        <h3>BRIGHTSIDE</h3>
+        <div class="socials">
+          <i class="fa-brands fa-facebook"></i>
+          <i class="fa-brands fa-instagram"></i>
+          <i class="fa-brands fa-linkedin"></i>
         </div>
-        <footer>
-            <h3>BRIGHTSIDE</h3>
-            <div class="socials">
-                <i class="fa-brands fa-facebook"></i>
-                <i class="fa-brands fa-instagram"></i>
-                <i class="fa-brands fa-linkedin"></i>
-            </div>
-        </footer>
+      </footer>
     </section>
     <script src="js/nav_bar.js"></script>
 
     <script src="display.js"></script>
 
     <script
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAUvjiCXqUAlJAX51e_HijdPbL9I6_Oqgs&callback=initMap&v=weekly"
-        defer></script>
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAUvjiCXqUAlJAX51e_HijdPbL9I6_Oqgs&callback=initMap&v=weekly"
+      defer
+    ></script>
 
     <script>
-        let map;
-        let currentLatitude, currentLongitude;
-        let directionsService, directionsRenderer;
+      let map;
+      let Area;
+      let selectedLongitude,selectedLatitude;
+      let currentLatitude, currentLongitude;
+      let directionsService, directionsRenderer;
+      var call_btn = document.getElementById("call-btn");
+      /* Set default map position */
+      function setDefaultMapPosition(lat, lng) {
+        const uluru = { lat: lat, lng: lng };
 
-        /* Set default map position */
-        function setDefaultMapPosition(lat, lng) {
-            const uluru = { lat: lat, lng: lng };
+        // The map, centered at Uluru
+        map.setCenter(uluru);
+      }
 
-            // The map, centered at Uluru
-            map.setCenter(uluru);
-        }
+      /* Get user location */
+      function getLocation() {
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(function (position) {
+            currentLatitude = position.coords.latitude;
+            currentLongitude = position.coords.longitude;
 
-        /* Get user location */
-        function getLocation() {
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(function (position) {
-
-                    currentLatitude = position.coords.latitude;
-                    currentLongitude = position.coords.longitude;
-
-                    const marker = new google.maps.Marker({
-                        position: { lat: currentLatitude, lng: currentLongitude },
-                        map: map,
-                    });
-
-                    setDefaultMapPosition(position.coords.latitude, position.coords.longitude);
-                    getNearByRecycleAreas(currentLatitude, currentLongitude);
-                });
-            } else {
-                x.innerHTML = "Geolocation is not supported by this browser.";
-            }
-        }
-
-        // Initialize and add the map
-        function initMap() {
-            // The location of Uluru
-            const uluru = { lat: -25.344, lng: 131.031 };
-
-            // The map, centered at Uluru
-            map = new google.maps.Map(document.getElementById("map"), {
-                zoom: 5,
-                center: uluru,
+            const marker = new google.maps.Marker({
+              position: { lat: currentLatitude, lng: currentLongitude },
+              map: map,
             });
 
-            directionsService = new google.maps.DirectionsService();
-            directionsRenderer = new google.maps.DirectionsRenderer();
-
-            directionsRenderer.setMap(map);
-            directionsRenderer.setPanel(document.getElementById('directionsPanel'));
-
-            getLocation();
+            setDefaultMapPosition(
+              position.coords.latitude,
+              position.coords.longitude
+            );
+            getNearByRecycleAreas(currentLatitude, currentLongitude);
+          });
+        } else {
+          x.innerHTML = "Geolocation is not supported by this browser.";
         }
+      }
 
-        // Fetch all recycleareas
-        var requestOptions = {
-            method: 'GET',
-            redirect: 'follow'
-        };
+      // Initialize and add the map
+      function initMap() {
+        // The location of Uluru
+        const uluru = { lat: -25.344, lng: 131.031 };
 
-        function getNearByRecycleAreas() {
-            fetch("http://18.182.31.147/api/near/recycle/?lat=-1.315497&long=36.809479", requestOptions)
-                .then(response => response.text())
-                .then(result => {
-                    // Add marker to google maps.
-                    recycleAreas = JSON.parse(result);
+        // The map, centered at Uluru
+        map = new google.maps.Map(document.getElementById("map"), {
+          zoom: 15,
+          center: uluru,
+        });
 
-                    recycleAreas.forEach(recycleArea => {
-                        // Add marker to google map
-                        const uluru = {
-                            lat: recycleArea.location.coordinates[1],
-                            lng: recycleArea.location.coordinates[0]
-                        };
+        directionsService = new google.maps.DirectionsService();
+        directionsRenderer = new google.maps.DirectionsRenderer();
 
-                        const marker = new google.maps.Marker({
-                            position: uluru,
-                            map: map,
-                        });
+        directionsRenderer.setMap(map);
+        directionsRenderer.setPanel(document.getElementById("directionsPanel"));
 
-                        console.log(marker.position)
+        getLocation();
+      }
 
-                        /* Create route from current position to marker on click */
-                        marker.addListener("click", () => {
-                            const start = new google.maps.LatLng(currentLatitude, currentLongitude);
-                            const end = new google.maps.LatLng(marker.position.lat(), marker.position.lng());
+      // Fetch all recycleareas
+      var requestOptions = {
+        method: "GET",
+        redirect: "follow",
+      };
 
-                            var request = {
-                                origin: start,
-                                destination: end,
-                                travelMode: 'WALKING'
-                            };
+      function getNearByRecycleAreas() {
+        fetch(
+          "http://18.182.31.147/api/near/recycle/?lat=-1.315497&long=36.809479",
+          requestOptions
+        )
+          .then((response) => response.text())
+          .then((result) => {
+            // Add marker to google maps.
+            recycleAreas = JSON.parse(result);
 
-                            directionsService.route(request, function (response, status) {
-                                console.log(status);
-                                if (status == 'OK') {
-                                    directionsRenderer.setDirections(response);
-                                }
-                            });
+            recycleAreas.forEach((recycleArea) => {
+              // Add marker to google map
+              const uluru = {
+                lat: recycleArea.location.coordinates[1],
+                lng: recycleArea.location.coordinates[0],
+              };
 
-                            console.log(marker)
-                        });
-                    });
-                })
-                .catch(error => console.log('error', error));
-        }
+              const marker = new google.maps.Marker({
+                position: uluru,
+                map: map,
+              });
 
-        window.initMap = initMap;
+              console.log(marker.position);
+
+              /* Create route from current position to marker on click */
+              marker.addListener("click", () => {
+                const start = new google.maps.LatLng(
+                  currentLatitude,
+                  currentLongitude
+                );
+                const end = new google.maps.LatLng(
+                  marker.position.lat(),
+                  marker.position.lng()
+                );
+
+                var request = {
+                  origin: start,
+                  destination: end,
+                  travelMode: "WALKING",
+                };
+
+                directionsService.route(request, function (response, status) {
+                  console.log(status);
+                  if (status == "OK") {
+                    directionsRenderer.setDirections(response);
+                  }
+                });
+
+                var recyc = document.getElementById("recycle_center");
+                call_btn.disabled = false;
+                recyc.innerHTML = `Call ${recycleArea["name"]} to you area`;
+                Area = recycleArea;
+                selectedLatitude = marker.position.lat()
+                selectedLongitude = marker.position.lng()
+                
+                console.log(marker);
+              });
+            });
+          })
+          .catch((error) => console.log("error", error));
+      }
+      function makeOrder(){
+        console.log("CALLE")
+        var myHeaders = new Headers();
+                myHeaders.append(
+                  "Authorization",
+                  "Token 7a151272d13cdfc003d1d986dbafa898ffb5de6e"
+                );
+
+                var formdata = new FormData();
+                formdata.append("area", Area['id']);
+                formdata.append("longitude", selectedLongitude);
+                formdata.append("latitude", selectedLatitude);
+
+                var requestOptions = {
+                  method: "POST",
+                  headers: myHeaders,
+                  body: formdata,
+                  redirect: "follow",
+                };
+
+                fetch("http://18.182.31.147/api/recycle/call/", requestOptions)
+                  .then((response) => response.json())
+                  .then((result) =>{
+                    window.location.href='bins.html'
+                  })
+                  .catch((error) => console.log("error", error));
+
+      }
+      window.initMap = initMap;
     </script>
-
-</body>
-
+  </body>
 </html>

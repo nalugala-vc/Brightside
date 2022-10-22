@@ -1,0 +1,27 @@
+.subscribe{
+    height: 200px;
+    display: grid;
+    place-items: center;
+}
+
+
+.subscribe p {
+    color: green;
+    
+    font-size: 0.9em;
+    font-weight: 600;
+}
+.subscribe button{
+    height: 40px;
+    width: 300px;
+    
+    border: none;
+    background-color: green;
+    margin: 1em auto;
+    display: block;
+    border-radius: 7px;
+    color: white;
+}
+button[disabled='true']{
+    background-color: gray;
+}
