@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="home.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <script src="https://kit.fontawesome.com/e54abc54b9.js" crossorigin="anonymous"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Alumni+Sans+Inline+One&family=Inter:wght@300;700&family=Josefin+Sans&family=Just+Another+Hand&family=Karla&family=Lobster+Two&family=Metal+Mania&family=Pacifico&family=Poppins&family=Roboto+Condensed:ital,wght@0,300;0,400;0,700;1,400&family=Rubik+Marker+Hatch&display=swap"
+        rel="stylesheet">
+    <title>BRIGHTSIDE -Locate a bins</title>
+
+    <style>
+        /* Set the size of the div element that contains the map */
+        #map {
+            height: 400px;
+            /* The height is 400 pixels */
+            width: 100%;
+            /* The width is the width of the web page */
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <div class="logo">
+            <img src="images/logo.jpg" alt="">
+            <span>MR BRIGHTSIDE</span>
+        </div>
+        <div id="navshow">
+            <i class="fa-solid fa-bars"></i>
+        </div>
+    </nav>
+    <div class="navlinks" style="display: none;" id="navlinks">
+        <div id="navhide"><i class="fa-solid fa-bars"></i></div>
+        <ul>
+            <li><a href="index.html">home</a></li>
+            <li><a href="bins.html">bins</a></li>
+            <li><a href="buyingtrees.html">trees</a></li>
+            <li><a href="campaigns.html">campaigns</a></li>
+            <li><a href="report.html">report</a></li>
+            <li><a href="cart.html">cart</a></li>
+            <li><a href="info.html">info</a></li>
+            <li><a href="profile.html">profile</a></li>
+            <li><a href="register.html">register</a></li>
+            <li><a href="login.html">login</a></li>
+        </ul>
+    </div>
+    <section>
+        <div class="mainimg">
+            <h1>Locate a Dustbin near you.</h1>
+
+            <!--The div element for the map -->
+            <div id="map"></div>
+            <div id="directionsPanel" style="float:right;width:30%;height:100%"></div>
+        </div>
+
+        <div class="subscribe">
+            <b>SUBSCRIBE</b>
+            <p>sign up for our newsletter</p>
+            <div class="inp"><input type="email" name="" id="" placeholder="email"></div>
+            <div class="btn"><button>subscribe</button></div>
+        </div>
+        <footer>
+            <h3>BRIGHTSIDE</h3>
+            <div class="socials">
+                <i class="fa-brands fa-facebook"></i>
+                <i class="fa-brands fa-instagram"></i>
+                <i class="fa-brands fa-linkedin"></i>
+            </div>
+        </footer>
+    </section>
+    <script src="display.js"></script>
+
+    <script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAUvjiCXqUAlJAX51e_HijdPbL9I6_Oqgs&callback=initMap&v=weekly"
+        defer></script>
+
+    <script>
+        let map;
+        let currentLatitude, currentLongitude;
+        let directionsService, directionsRenderer;
+
+        /* Set default map position */
+        function setDefaultMapPosition(lat, lng) {
+            const uluru = { lat: lat, lng: lng };
+
+            // The map, centered at Uluru
+            map.setCenter(uluru);
+        }
+
+        /* Get user location */
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function (position) {
+
+                    currentLatitude = position.coords.latitude;
+                    currentLongitude = position.coords.longitude;
+
+                    const marker = new google.maps.Marker({
+                        position: { lat: currentLatitude, lng: currentLongitude },
+                        map: map,
+                    });
+
+                    setDefaultMapPosition(position.coords.latitude, position.coords.longitude);
+                    getNearByRecycleAreas(currentLatitude, currentLongitude);
+                });
+            } else {
+                x.innerHTML = "Geolocation is not supported by this browser.";
+            }
+        }
+
+        // Initialize and add the map
+        function initMap() {
+            // The location of Uluru
+            const uluru = { lat: -25.344, lng: 131.031 };
+
+            // The map, centered at Uluru
+            map = new google.maps.Map(document.getElementById("map"), {
+                zoom: 5,
+                center: uluru,
+            });
+
+            directionsService = new google.maps.DirectionsService();
+            directionsRenderer = new google.maps.DirectionsRenderer();
+
+            directionsRenderer.setMap(map);
+            directionsRenderer.setPanel(document.getElementById('directionsPanel'));
+
+            getLocation();
+        }
+
+        // Fetch all recycleareas
+        var requestOptions = {
+            method: 'GET',
+            redirect: 'follow'
+        };
+
+        function getNearByRecycleAreas() {
+            fetch("http://18.182.31.147/api/near/recycle/?lat=-1.315497&long=36.809479", requestOptions)
+                .then(response => response.text())
+                .then(result => {
+                    // Add marker to google maps.
+                    recycleAreas = JSON.parse(result);
+
+                    recycleAreas.forEach(recycleArea => {
+                        // Add marker to google map
+                        const uluru = {
+                            lat: recycleArea.location.coordinates[1],
+                            lng: recycleArea.location.coordinates[0]
+                        };
+
+                        const marker = new google.maps.Marker({
+                            position: uluru,
+                            map: map,
+                        });
+
+                        console.log(marker.position)
+
+                        /* Create route from current position to marker on click */
+                        marker.addListener("click", () => {
+                            const start = new google.maps.LatLng(currentLatitude, currentLongitude);
+                            const end = new google.maps.LatLng(marker.position.lat(), marker.position.lng());
+
+                            var request = {
+                                origin: start,
+                                destination: end,
+                                travelMode: 'WALKING'
+                            };
+
+                            directionsService.route(request, function (response, status) {
+                                console.log(status);
+                                if (status == 'OK') {
+                                    directionsRenderer.setDirections(response);
+                                }
+                            });
+
+                            console.log(marker)
+                        });
+                    });
+                })
+                .catch(error => console.log('error', error));
+        }
+
+        window.initMap = initMap;
+    </script>
+</body>
+
+</html>
