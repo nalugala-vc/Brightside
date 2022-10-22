@@ -2,7 +2,7 @@ var myHeaders = new Headers();
 
 function get_token() {
   localStorage.getItem("Token");
-}
+} 
 
 myHeaders.append(
   "Authorization",
@@ -45,7 +45,7 @@ fetch("http://18.182.31.147/api/tree/order/", requestOptions)
     </div>
     <div class="add">
         <button><i class="fa-solid fa-minus"></i></button>
-        <input type="number" name="" id="" placeholder="1">
+        <input type="number" name="" id="" placeholder="1" value='${element['quantity']}'>
         <button><i class="fa-solid fa-plus"></i></button>
     </div>
 </div>
