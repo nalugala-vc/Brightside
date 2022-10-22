@@ -98,9 +98,9 @@ nav{
     padding-left: 20px;
     color: #133d12;
 }
-.popular{
+.popular-container{
     display: flex;
-    overflow: scroll;
+    flex-wrap: wrap;
 }
 .popular::-webkit-scrollbar{
     display: none;

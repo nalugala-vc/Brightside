@@ -188,3 +188,28 @@ footer h3{
     font-size: 27px;
     margin: 5px;
 }
+.row{
+    display: flex;
+}
+.center-div{
+    display: grid;
+    place-items: center;
+}
+.pollution-information{
+    display: flex;
+    margin: 2em 0;
+ }
+.pollution-information img{
+    width: 3em;
+    height: 3em;
+    margin-right: 1em;
+}
+#pollution-message{
+    font-size: small;
+}
+.danger-text{
+    color: red;
+}
+.good-text{
+    color: green;
+}
