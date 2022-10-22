@@ -141,7 +141,7 @@
         };
 
         function getNearByRecycleAreas() {
-            fetch("http://18.182.31.147/api/near/campaign/?lat=-1.315497&long=36.809479", requestOptions)
+            fetch("http://18.182.31.147/api/near/recycle/?lat=-1.315497&long=36.809479", requestOptions)
                 .then(response => response.text())
                 .then(result => {
                     // Add marker to google maps.
