@@ -1,62 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="cart.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <script src="https://kit.fontawesome.com/e54abc54b9.js" crossorigin="anonymous"></script>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="cart.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <script
+      src="https://kit.fontawesome.com/e54abc54b9.js"
+      crossorigin="anonymous"
+    ></script>
     <link
-        href="https://fonts.googleapis.com/css2?family=Alumni+Sans+Inline+One&family=Inter:wght@300;700&family=Josefin+Sans&family=Just+Another+Hand&family=Karla&family=Lobster+Two&family=Metal+Mania&family=Pacifico&family=Poppins&family=Roboto+Condensed:ital,wght@0,300;0,400;0,700;1,400&family=Rubik+Marker+Hatch&display=swap"
-        rel="stylesheet">
+      href="https://fonts.googleapis.com/css2?family=Alumni+Sans+Inline+One&family=Inter:wght@300;700&family=Josefin+Sans&family=Just+Another+Hand&family=Karla&family=Lobster+Two&family=Metal+Mania&family=Pacifico&family=Poppins&family=Roboto+Condensed:ital,wght@0,300;0,400;0,700;1,400&family=Rubik+Marker+Hatch&display=swap"
+      rel="stylesheet"
+    />
     <title>BRIGHTSIDE</title>
-</head>
+  </head>
 
-<body>
+  <body>
     <header></header>
     <h2>My Bag</h2>
-    <div class="cartitems">
-    
-    </div>
+    <div class="cartitems"></div>
     <footer>
-        <div id="price">
-            <span>shipping: <b>KES 40</b></span>
-            <span>total: <b>KES 2500</b></span>
-        </div>
-        <div class="check"><button id="checkout">checkout</button></div>
+      <div id="price">
+        <span>shipping: <b>KES 40</b></span>
+        <span>total: <b>KES 2500</b></span>
+      </div>
+      <div class="check"><button id="checkout">checkout</button></div>
     </footer>
     <script src="display.js"></script>
     <script src="js/buying_trees.js"></script>
     <script src="js/cart.js"></script>
 
     <script>
-        /* MPesa Request credentials */
-        document.getElementById("checkout").addEventListener("click", function () {
-            var myHeaders = new Headers();
-            myHeaders.append("Authorization", "Basic ZG12QVh5UlJ0Qk1HZUtpTGhnR1NDSHRzekZpZVU0TXk6c245Ynd6cUU4cWFHaG5GRw==");
-            myHeaders.append("Cookie", "incap_ses_703_2742146=zbBfWF67iyBN3rHGgI/BCUH3UmMAAAAAR86yLkZvkbdYung9bOdXLg==; visid_incap_2742146=X39VYm/jR5GQSlqUvY8SAED3UmMAAAAAQUIPAAAAAADdgu2HbMka0B9YCh5Ons8z");
+      /* MPesa Request credentials */
+      document
+        .getElementById("checkout")
+        .addEventListener("click", function () {
+          var myHeaders = new Headers();
+          myHeaders.append(
+            "Authorization",
+            "Basic ZG12QVh5UlJ0Qk1HZUtpTGhnR1NDSHRzekZpZVU0TXk6c245Ynd6cUU4cWFHaG5GRw=="
+          );
+          myHeaders.append(
+            "Cookie",
+            "incap_ses_703_2742146=zbBfWF67iyBN3rHGgI/BCUH3UmMAAAAAR86yLkZvkbdYung9bOdXLg==; visid_incap_2742146=X39VYm/jR5GQSlqUvY8SAED3UmMAAAAAQUIPAAAAAADdgu2HbMka0B9YCh5Ons8z"
+          );
 
-            var requestOptions = {
-                method: 'GET',
-                headers: myHeaders,
-                redirect: 'follow'
-            };
+          var requestOptions = {
+            method: "GET",
+            headers: myHeaders,
+            redirect: "follow",
+          };
 
-            fetch("https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials", requestOptions)
-                .then(response => response.text())
-                .then(result => {
-                    console.log(result)
-
-                    
-                })
-                .catch(error => console.log('error', error));
+          fetch(
+            "https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials",
+            requestOptions
+          )
+            .then((response) => response.text())
+            .then((result) => {
+              console.log(result);
+            })
+            .catch((error) => console.log("error", error));
         });
     </script>
 
-
-</body>
-
+    <script src="display.js"></script>
+    <script src="js/nav_bar.js"></script>
+  </body>
 </html>
