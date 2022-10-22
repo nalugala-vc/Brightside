@@ -23,7 +23,7 @@ fetch(`http://18.182.31.147/api/treeshop/${shopID}`, requestOptions)
             <p>${element["name"]}</p>
             <b>KES ${element['price']}</b>
         </div>
-        <div id="cartt"><button><i class="fa-solid fa-cart-shopping"></i></button></div>
+        <div id="cartt"><button onclick="addToCart(${element['id']})"><i class="fa-solid fa-cart-shopping"></i></button></div>
     </div>
 </div>
 

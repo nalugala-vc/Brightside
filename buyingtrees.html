@@ -58,5 +58,33 @@
     </div>
     <script src="display.js"></script>
     <script src="js/buying_trees.js"></script>
+    <script>
+      function addToCart(id) {
+        var myHeaders = new Headers();
+        myHeaders.append(
+          "Authorization",
+          "Token 7a151272d13cdfc003d1d986dbafa898ffb5de6e"
+
+        );
+
+        var formdata = new FormData();
+        formdata.append("tree", id);
+        formdata.append("quantity", 1);
+        formdata.append("longitude", "37");
+        formdata.append("latitude", "1");
+
+        var requestOptions = {
+          method: "POST",
+          headers: myHeaders,
+          body: formdata,
+          redirect: "follow",
+        };
+
+        fetch("http://18.182.31.147/api/tree/order/", requestOptions)
+          .then((response) => response.json())
+          .then((result) => window.location.href='/cart.html')
+          .catch((error) => console.log("error", error));
+      }
+    </script>
   </body>
 </html>
