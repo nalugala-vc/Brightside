@@ -1,3 +1,13 @@
+function get_token() {
+  var token = localStorage.getItem("Token");
+  if(token ==null){
+    window.location.href='auth.html'
+  }
+  else{
+    return token
+  }
+} 
+
 var requestOptions = {
   method: "GET",
   redirect: "follow",

@@ -1,12 +1,18 @@
 var myHeaders = new Headers();
 
 function get_token() {
-  localStorage.getItem("Token");
+  var token = localStorage.getItem("Token");
+  if(token ==null){
+    window.location.href='auth.html'
+  }
+  else{
+    return token
+  }
 } 
 
 myHeaders.append(
   "Authorization",
-  "Token 7a151272d13cdfc003d1d986dbafa898ffb5de6e"
+  get_token()
 );
 
 var formdata = new FormData();
@@ -44,9 +50,9 @@ fetch("http://18.182.31.147/api/tree/order/", requestOptions)
         </div>&nbsp;<div>remove</div>
     </div>
     <div class="add">
-        <button><i class="fa-solid fa-minus"></i></button>
-        <input type="number" name="" id="" placeholder="1" value='${element['quantity']}'>
-        <button><i class="fa-solid fa-plus"></i></button>
+        <button id="btn1"><i class="fa-solid fa-minus"></i></button>
+        <input id="fel" type="number" name="" id="" placeholder="1" value='${element['quantity']}'>
+        <button id="btn2"><i class="fa-solid fa-plus"></i></button>
     </div>
 </div>
     
@@ -56,3 +62,17 @@ fetch("http://18.182.31.147/api/tree/order/", requestOptions)
     })
   )
   .catch((error) => console.log(error));
+ btn1=document.getElementById('btn1');
+ btn2=document.getElementById('btn2');
+ fiel=document.getElementById('fel');
+var num=0;
+btn1.onclick=()=>{
+  num--;
+fiel.innerText=num;
+
+}
+btn2.onclick=()=>{
+  num++;
+fiel.innerText=num
+
+}

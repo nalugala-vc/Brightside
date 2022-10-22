@@ -60,11 +60,18 @@
     <script src="js/buying_trees.js"></script>
     <script>
       function addToCart(id) {
+        function get_token() {
+          var token = localStorage.getItem("Token");
+          if (token == null) {
+            window.location.href = "auth.html";
+          } else {
+            return token;
+          }
+        }
         var myHeaders = new Headers();
         myHeaders.append(
           "Authorization",
-          "Token 7a151272d13cdfc003d1d986dbafa898ffb5de6e"
-
+          get_token()
         );
 
         var formdata = new FormData();
@@ -82,7 +89,7 @@
 
         fetch("http://18.182.31.147/api/tree/order/", requestOptions)
           .then((response) => response.json())
-          .then((result) => window.location.href='/cart.html')
+          .then((result) => (window.location.href = "/cart.html"))
           .catch((error) => console.log("error", error));
       }
     </script>

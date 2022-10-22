@@ -1,14 +1,26 @@
-const form=document.getElementById('form');
+const form=document.querySelector('form')
 
 form.addEventListener('submit',function(e){
     e.preventDefault();
 
-    const register=new FormData(form);
+    var username = document.getElementById("uname").value;
+    var password = document.getElementById("pwd").value;
 
-    console.log([...register])
+    var formdata = new FormData();
+    formdata.append("username", username);
+    formdata.append("password", password);
+  
 
-    fetch('http://18.182.31.147/api/auth/register/',{
-        method:'POST',
-        body:register
-    }).then(res=>res.json()).then(data =>console.log(data)).catch(err=>console.log(err))
+    var requestOptions = {
+        method: 'POST',
+        body: formdata
+      };
+      
+      fetch("http://18.182.31.147/api/auth/login/", requestOptions)
+        .then(response => response.json())
+        .then(result => {
+            localStorage.setItem('Token',`Token ${result['key']}`);
+            window.location.href = 'index.html'
+        })
+      //   .catch(error => console.log('error', error));
 })

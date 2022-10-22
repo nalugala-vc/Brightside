@@ -136,10 +136,10 @@
             var qualityIndex = pollution["aqius"];
             var message = document.getElementById("pollution-message");
             pollution_dom.innerHTML = `Air Quality Index: ${pollution["aqius"]}`;
-            if (qualityIndex < 50) {
+            if (qualityIndex < 40) {
               message.innerHTML = "You air quality is at a good level";
               message.classList.add("good-text");
-            } else if (qualityIndex > 50) {
+            } else if (qualityIndex > 40) {
               message.innerHTML =
                 "You are at air quality is at a poor level and might be in danger of respiratory-diseases";
               message.classList.add("danger-text");
