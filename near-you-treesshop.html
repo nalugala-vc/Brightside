@@ -105,6 +105,9 @@
                         position: { lat: currentLatitude, lng: currentLongitude },
                         map: map,
                     });
+                    marker.addListener("click",()=>{
+
+                    })
 
                     setDefaultMapPosition(position.coords.latitude, position.coords.longitude);
                     getNearByRecycleAreas(currentLatitude, currentLongitude);
@@ -179,7 +182,8 @@
                                 }
                             });
 
-                            console.log(marker)
+                            console.log(recycleArea)
+                            window.location.href=`buyingtrees.html?id=${recycleArea['id']}`
                         });
                     });
                 })
